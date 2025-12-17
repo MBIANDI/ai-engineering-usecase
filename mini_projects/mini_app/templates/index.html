@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>AI Assistant</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 15px;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        #response {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>AI Assistant</h1>
+
+<form id="ai-form">
+    <label for="message">Message :</label><br>
+    <textarea id="message" name="message" rows="4" cols="50"></textarea><br><br>
+
+    <label for="model">City :</label><br>
+    <select id="model" name="model">
+        <option value="Yaoundé">Yaoundé</option>
+        <option value="Douala">Douala</option>
+        <option value="Mbalmayo">Mbalmayo</option>
+        <option value="Sangmelima">Sangmelima</option>
+        <option value="Foumban">Foumban</option>
+    </select><br><br>
+
+    <input type="submit" value="Submit">
+</form>
+
+<div id="response"></div>
+
+<script>
+document.getElementById('ai-form').addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    const message = document.getElementById('message').value;
+    const city = document.getElementById('model').value;
+    const responseDiv = document.getElementById('response');
+
+    responseDiv.innerHTML = 'Loading...';
+
+    fetch('/generate', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            message: message,
+            city: city
+        })
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('HTTP error ' + response.status);
+        }
+        return response.json();
+    })
+    .then(data => {
+        responseDiv.innerHTML = '';
+
+        console.log('DATA FROM SERVER:', data);
+
+        // 🔥 Robust extraction of array
+        const result =
+            Array.isArray(data) ? data :
+            Array.isArray(data.response) ? data.response :
+            Array.isArray(data.data) ? data.data :
+            null;
+
+        if (!result) {
+            responseDiv.innerText = 'Unexpected response format';
+            return;
+        }
+
+        let html = `
+            <table>
+                <thead>
+                    <tr>
+                        <th>City</th>
+                        <th>Touristic Site</th>
+                        <th>Free</th>
+                    </tr>
+                </thead>
+                <tbody>
+        `;
+
+        result.forEach(item => {
+            html += `
+                <tr>
+                    <td>${item.city_name ?? ''}</td>
+                    <td>${item.touristic_site_name ?? ''}</td>
+                    <td>${item.free ? 'Yes' : 'No'}</td>
+                </tr>
+            `;
+        });
+
+        html += `
+                </tbody>
+            </table>
+        `;
+
+        responseDiv.innerHTML = html;
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        responseDiv.innerText = 'Error: ' + error.message;
+    });
+});
+</script>
+
+</body>
+</html>
