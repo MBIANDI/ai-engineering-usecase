@@ -1,0 +1,38 @@
+[tool.poetry]
+name = "gen-ai-common-use"  # Replace with your project name
+version = "0.1.0"            # Initial version of the project
+description = "This repo is for showcasing common generative AI applications."  # Project description
+authors = ["MBIA NDI Marie Thérèse <mbialaura12@gmail.com>"]  # Replace with your name and email
+license = "CC0 1.0 Universal"              # Replace with your preferred license
+readme = "README.md"         # Path to your README file
+homepage = "https://github.com/MBIANDI/ai-engineering-usecases"  # Project's homepage
+repository = "https://github.com/MBIANDI/ai-engineering-usecase"  # Project repository URL
+
+# Disable package mode
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.11"              # Python version compatibility
+requests = "^2.28.0"         # Add dependencies here
+# Add more dependencies as needed
+python-dotenv = "^1.0.1"
+langchain = "^0.3.7"
+transformers = "^4.46.2"
+langchain-community = "^0.3.7"
+langchain-huggingface = "^0.1.2"
+protobuf = "^5.28.3"
+sentencepiece = "^0.2.0"
+google-search-results = "^2.4.2"
+pandas = "^2.2.3"
+nbconvert = "^7.16.4"
+lancedb = "^0.17.0"
+ragatouille = "^0.0.8.post4"
+plotly = "^5.24.1"
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.0.0"            # Example dev dependency
+black = "^23.1.0"            # Example of a code formatter
+
+[tool.poetry.group.dev.dependencies]
+ipykernel = "^6.29.5"
+
