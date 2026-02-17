@@ -34,6 +34,15 @@ llama-index-embeddings-huggingface = "^0.6.1"
 llama-index-retrievers-bm25 = "^0.6.5"
 rank-bm25 = "^0.2.2"
 llama-index-llms-langchain = "^0.7.1"
+langgraph = "^0.6.1"
+wikipedia = "^1.4.0"
+youtube-search = "^2.2.0"
+twilio = "^9.10.1"
+schedule = "^1.2.2"
+apscheduler = "^3.11.2"
+google-api-python-client = "^2.190.0"
+google-auth-httplib2 = "^0.3.0"
+google-auth-oauthlib = "^1.2.4"
 
 [tool.poetry.dev-dependencies]
 pytest = "^7.0.0"            # Example dev dependency
