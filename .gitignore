@@ -212,3 +212,6 @@ __marimo__/
 claim_records
 **.json
 **.pickle
+**pandas_angent_env
+**pdf
+**csv
